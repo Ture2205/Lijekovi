@@ -100,9 +100,15 @@ insert into pacijenti (ime,prezime,datumrodenja,spol,lijek,recept)
 values ('Iva','Ivić','1999-12-31','Ž',3,2);
 
 
+--insert događaj
 
+insert into dogadaji (pacijent, lijek,vrijemeuzimanja) 
+values (1,1,'2023-12-15');
 
+insert into dogadaji (pacijent, lijek,vrijemeuzimanja) 
+values (1,2,'2023-12-15');
 
-
+insert into dogadaji (pacijent, lijek,vrijemeuzimanja) 
+values (1,3,'2023-12-15');
 
 
