@@ -25,17 +25,17 @@ namespace APP.Models
         /// broj tableta 
         /// </summary>
         [Range(0, 100, ErrorMessage = "Vrijednost {0} mora biti između {1} i {2}")]
-        public decimal? Brojtableta { get; set; }
+        public int? Brojtableta { get; set; }
 
         /// <summary>
         /// Nacin primjene oralno, intravenozno,etc...
         /// </summary>
-        public decimal? Nacinprimjene { get; set; }
+        public string? Nacinprimjene { get; set; }
 
         /// <summary>
         /// Datum podizanja lijeka 
         /// </summary>
-        public bool? Datumpodizanja { get; set; }
+        public DateTime? Datumpodizanja { get; set; }
 
     }
 }
