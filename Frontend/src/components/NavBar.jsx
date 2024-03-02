@@ -18,7 +18,7 @@ function NavBar() {
             className='linkPocetna'
             onClick={()=>navigate(RoutesNames.HOME)}
         >
-            Edunova APP
+             APP
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -45,7 +45,7 @@ function NavBar() {
           </Nav>
         </Navbar.Collapse>
         <Navbar.Collapse className="justify-content-end">
-        <Nav.Link target="_blank" href="https://tjakopec-001-site1.ftempurl.com/swagger/index.html">API dokumentacija</Nav.Link>
+        <Nav.Link target="_blank" href="http://mario2205-001-site1.gtempurl.com/swagger/index.html">API dokumentacija</Nav.Link>
         </Navbar.Collapse>
       </Container>
     </Navbar>
