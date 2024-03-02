@@ -1,8 +1,8 @@
 export const RoutesNames = {
     HOME: '/',
-    SMJEROVI_PREGLED: '/smjerovi',
-    SMJEROVI_NOVI: '/smjerovi/dodaj',
-    SMJEROVI_PROMJENI: '/smjerovi/promjeni'
+    LIJEKOVI_PREGLED: '/lijekovi',
+    LIJEKOVI_NOVI: '/lijekovi/dodaj',
+    LIJEKOVI_PROMJENI: '/lijekovi/promjeni'
 };
 
 export const App = {

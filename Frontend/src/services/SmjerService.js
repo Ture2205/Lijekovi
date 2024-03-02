@@ -1,8 +1,8 @@
 import { App } from "../constants"
 import { httpService } from "./httpService";
 
-async function getSmjerovi(){
-    return await httpService.get('/Smjer')
+async function getLijekovi(){
+    return await httpService.get('/Lijekovi')
     .then((res)=>{
         if(App.DEV) console.table(res.data);
 
@@ -15,5 +15,5 @@ async function getSmjerovi(){
 
 
 export default{
-    getSmjerovi
+    getLijekovi
 };

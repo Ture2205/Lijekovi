@@ -10,13 +10,13 @@ import { Link } from "react-router-dom";
 import { RoutesNames } from "../../constants";
 
 
-export default function Smjerovi(){
-    const [smjerovi,setSmjerovi] = useState();
+export default function Lijekovi(){
+    const [lijekovi,setLijekovi] = useState();
 
-    async function dohvatiSmjerove(){
-        await SmjerService.getSmjerovi()
+    async function dohvatiLijekove(){
+        await LijekoviService.getLijekovi()
         .then((res)=>{
-            setSmjerovi(res.data);
+            setLijekovi(res.data);
         })
         .catch((e)=>{
             alert(e);
@@ -25,7 +25,7 @@ export default function Smjerovi(){
      // Ovo se poziva dvaput u dev ali jednom u produkciji
     // https://stackoverflow.com/questions/60618844/react-hooks-useeffect-is-called-twice-even-if-an-empty-array-is-used-as-an-ar
     useEffect(()=>{
-        dohvatiSmjerove();
+        dohvatiLijekove();
     },[]);
 
     function verificiran(smjer){
@@ -45,7 +45,7 @@ export default function Smjerovi(){
     return (
 
         <Container>
-            <Link to={RoutesNames.SMJEROVI_NOVI} className="btn btn-success gumb">
+            <Link to={RoutesNames.LIJEKOVI_NOVI} className="btn btn-success gumb">
                 <IoIosAdd
                 size={25}
                 /> Dodaj
@@ -53,20 +53,20 @@ export default function Smjerovi(){
             <Table striped bordered hover responsive>
                 <thead>
                     <tr>
-                        <th>Naziv</th>
-                        <th>Trajanje</th>
-                        <th>Cijena</th>
-                        <th>Upisnina</th>
-                        <th>Verificiran</th>
-                        <th>Akcija</th>
+                        <th>Tip</th>
+                        <th>Doza</th>
+                        <th>Brojtableta</th>
+                        <th>Nacinprimjene</th>
+                        <th>Datumpodizanja</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
-                    {smjerovi && smjerovi.map((smjer,index)=>(
+                    {lijekovi && lijekovi.map((lijekovi,index)=>(
                         <tr key={index}>
-                            <td>{smjer.naziv}</td>
-                            <td className="desno">{smjer.trajanje}</td>
-                            <td className={smjer.cijena==null ? 'sredina' : 'desno'}>
+                            <td>{lijekovi.tip}</td>
+                            <td className="desno">{lijekovi.doza}</td>
+                            <td className={lijekovi.brojtableta==null ? 'sredina' : 'desno'}>
                                 {smjer.cijena==null 
                                 ? 'Nije definirano'
                                 :

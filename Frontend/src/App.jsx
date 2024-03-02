@@ -2,11 +2,11 @@ import { Route, Routes } from "react-router-dom"
 import Pocetna from "./pages/Pocetna"
 import { RoutesNames } from "./constants"
 import NavBar from "./components/NavBar"
-import Smjerovi from "./pages/smjerovi/Smjerovi"
+import Smjerovi from "./pages/smjerovi/Lijekovi"
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
-import SmjeroviDodaj from "./pages/smjerovi/SmjeroviDodaj"
+import LijekoviDodaj from "./pages/Lijekovi/LijekoviDodaj"
 
 function App() {
   return (
@@ -15,8 +15,8 @@ function App() {
       <Routes>
         <>
           <Route path={RoutesNames.HOME} element={<Pocetna />} />
-          <Route path={RoutesNames.SMJEROVI_PREGLED} element={<Smjerovi />} />
-          <Route path={RoutesNames.SMJEROVI_NOVI} element={<SmjeroviDodaj />} />
+          <Route path={RoutesNames.LIJEKOVI_PREGLED} element={<Lijekovi />} />
+          <Route path={RoutesNames.LIJEKOVI_NOVI} element={<LijekoviDodaj />} />
         </>
       </Routes>
     </>

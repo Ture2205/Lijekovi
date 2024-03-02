@@ -1,12 +1,12 @@
 import { Container, Table } from "react-bootstrap";
 
-export default function SmjeroviPromjeni(){
+export default function LijekoviDodaj(){
 
 
     return (
 
         <Container>
-           Mjenjanje smjera
+           Dodavanje lijeka
         </Container>
 
     );
