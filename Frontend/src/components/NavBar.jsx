@@ -24,12 +24,12 @@ function NavBar() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             
-            <NavDropdown title="Programi" id="basic-nav-dropdown">
+            <NavDropdown title="Izbornik" id="basic-nav-dropdown">
               <NavDropdown.Item 
-                onClick={()=>navigate(RoutesNames.SMJEROVI_PREGLED)}
+                onClick={()=>navigate(RoutesNames.LIJEKOVI_PREGLED)}
               >
-                Smjerovi
-              </NavDropdown.Item>
+                Lijekovi
+                <NavDropdown.Item>Tip</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">
                 Predavači
               </NavDropdown.Item>

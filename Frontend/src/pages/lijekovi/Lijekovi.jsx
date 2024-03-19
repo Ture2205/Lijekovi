@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Container, Table } from "react-bootstrap";
-import SmjerService from "../../services/SmjerService";
+import SmjerService from "../../services/LijekoviService";
 import { NumericFormat } from "react-number-format";
 import { GrValidate } from "react-icons/gr";
 import { IoIosAdd } from "react-icons/io";
@@ -11,7 +11,9 @@ import { RoutesNames } from "../../constants";
 
 
 export default function Lijekovi(){
+
     const [lijekovi,setLijekovi] = useState();
+    const navigate = useNavigate();
 
     async function dohvatiLijekove(){
         await LijekoviService.getLijekovi()

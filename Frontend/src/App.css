@@ -1,12 +1,22 @@
-.desno{
-    text-align: right;
+.desno {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
+.searchContainer {
+    display: flex;
+    align-items: center;
+  }
+
+
 .sredina{
     text-align: center;
 }
 .gumb{
     width: 100%;
     margin-bottom: 5px;
+    background-color: rgb(230, 159, 112);
+    color: blue;
 }
 
 .btn-success {
