@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { RiArrowGoBackFill } from "react-icons/ri"
 import { RiArrowGoForwardFill } from "react-icons/ri";
 import { RoutesNames } from "../../constants";
-import RadnikService from "../../services/LijekovikService";
+import LijekoviService from "../../services/LijekovikService";
 import { useEffect, useState } from "react";
 
 export default function LijekoviPromjeni(){
