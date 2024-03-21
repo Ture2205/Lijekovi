@@ -6,8 +6,8 @@ import Lijekovi from "./pages/lijekovi/Lijekovi"
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
-import LijekoviDodaj from "./pages/Lijekovi/LijekoviDodaj"
-import LijekoviPromjeni from "./pages/Lijekovi/LijekoviPromjeni"
+import LijekoviDodaj from "./pages/lijekovi/LijekoviDodaj"
+import LijekoviPromjeni from "./pages/lijekovi/LijekoviPromjeni"
 
 function App() {
   return (
@@ -18,6 +18,7 @@ function App() {
           <Route path={RoutesNames.HOME} element={<Pocetna />} />
           <Route path={RoutesNames.LIJEKOVI_PREGLED} element={<Lijekovi />} />
           <Route path={RoutesNames.LIJEKOVI_DODAJ} element={<LijekoviDodaj />} />
+          <Route path={RoutesNames.LIJEKOVI_PROMJENI} element ={<LijekoviPomjeni/>} />
         </>
       </Routes>
     </>
