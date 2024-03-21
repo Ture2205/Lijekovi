@@ -69,7 +69,7 @@ export default function Lijekovi(){
                             <td>{lijekovi.tip}</td>
                             <td className="desno">{lijekovi.doza}</td>
                             <td className={lijekovi.brojtableta==null ? 'sredina' : 'desno'}>
-                                {smjer.cijena==null 
+                                {lijekovi.nacinprimjene==null 
                                 ? 'Nije definirano'
                                 :
                                     <NumericFormat 
