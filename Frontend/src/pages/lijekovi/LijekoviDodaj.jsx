@@ -1,4 +1,4 @@
-import { Container, Form, Table } from "react-bootstrap";
+import { Container, Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { RiArrowGoBackFill } from "react-icons/ri"
 import { RiArrowGoForwardFill } from "react-icons/ri";

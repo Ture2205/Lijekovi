@@ -9,7 +9,7 @@ import './NavBar.css';
 
 function NavBar() {
 
-    const navigate = useNavigate();
+    const navigate = useNavigate ();
 
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
@@ -17,35 +17,25 @@ function NavBar() {
         <Navbar.Brand 
             className='linkPocetna'
             onClick={()=>navigate(RoutesNames.HOME)}
-        >
-             APP
+            >
+                Lijekovi APP
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            
             <NavDropdown title="Izbornik" id="basic-nav-dropdown">
               <NavDropdown.Item 
                 onClick={()=>navigate(RoutesNames.LIJEKOVI_PREGLED)}
               >
                 Lijekovi
-                <NavDropdown.Item>Tip</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Predavači
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">
-                Polaznici
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Grupe
-              </NavDropdown.Item>
+            </NavDropdown.Item>
+              <NavDropdown.Item>Lijekovi</NavDropdown.Item>
+              
             </NavDropdown>
-            
           </Nav>
         </Navbar.Collapse>
-        <Navbar.Collapse className="justify-content-end">
-        <Nav.Link target="_blank" href="http://mario2205-001-site1.gtempurl.com/swagger/index.html">API dokumentacija</Nav.Link>
+        <Navbar.Collapse className='justify-content-end'>
+            <Nav.Link target ='_blank' href="http://mario2205-001-site1.gtempurl.com/swagger/index.html">API Dokumentacija</Nav.Link>
         </Navbar.Collapse>
       </Container>
     </Navbar>

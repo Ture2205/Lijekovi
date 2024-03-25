@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import { Container, Table } from "react-bootstrap";
-import SmjerService from "../../services/LijekoviService";
 import { NumericFormat } from "react-number-format";
 import { GrValidate } from "react-icons/gr";
 import { IoIosAdd } from "react-icons/io";
 import { FaEdit, FaTrash } from "react-icons/fa";
-import { MdOutlineDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { RoutesNames } from "../../constants";
 
@@ -13,7 +11,6 @@ import { RoutesNames } from "../../constants";
 export default function Lijekovi(){
 
     const [lijekovi,setLijekovi] = useState();
-    const navigate = useNavigate();
 
     async function dohvatiLijekove(){
         await LijekoviService.getLijekovi()
