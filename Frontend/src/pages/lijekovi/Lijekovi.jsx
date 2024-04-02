@@ -6,6 +6,7 @@ import { IoIosAdd } from "react-icons/io";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { RoutesNames } from "../../constants";
+import LijekoviService from "../../services/LijekoviService";
 
 
 export default function Lijekovi(){
@@ -44,7 +45,7 @@ export default function Lijekovi(){
     return (
 
         <Container>
-            <Link to={RoutesNames.LIJEKOVI_NOVI} className="btn btn-success gumb">
+            <Link to={RoutesNames.LIJEKOVI_DODAJ} className="btn btn-success gumb">
                 <IoIosAdd
                 size={25}
                 /> Dodaj
@@ -103,7 +104,7 @@ export default function Lijekovi(){
                             />
                             </td>
                             <td className="sredina">
-                                <Link to={RoutesNames.SMJEROVI_PROMJENI}>
+                                <Link to={RoutesNames.LIJEKOVI_PROMJENI}>
                                     <FaEdit 
                                     size={25}
                                     />

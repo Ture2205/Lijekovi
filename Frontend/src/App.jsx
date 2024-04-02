@@ -18,7 +18,7 @@ function App() {
           <Route path={RoutesNames.HOME} element={<Pocetna />} />
           <Route path={RoutesNames.LIJEKOVI_PREGLED} element={<Lijekovi />} />
           <Route path={RoutesNames.LIJEKOVI_DODAJ} element={<LijekoviDodaj />} />
-          <Route path={RoutesNames.LIJEKOVI_PROMJENI} element ={<LijekoviPomjeni/>} />
+          <Route path={RoutesNames.LIJEKOVI_PROMJENI} element ={<LijekoviPromjeni/>} />
         </>
       </Routes>
     </>

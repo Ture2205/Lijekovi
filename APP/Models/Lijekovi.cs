@@ -17,7 +17,7 @@ namespace APP.Models
         /// Doza 
         /// </summary>
 
-        [Range(0,1000, ErrorMessage = "Vrijednost {0} mora biti između {1} i {2}")]
+        [Range(1,1000, ErrorMessage = "Vrijednost {0} mora biti između {1} i {2}")]
         [Column("Doza")]
         public int? Doza { get; set; }
 
