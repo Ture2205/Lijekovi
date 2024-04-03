@@ -1,10 +1,14 @@
 ﻿using APP.Data;
 using APP.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
+
 
 namespace APP.Controllers
 {
+    /// <summary>
+    /// Namjenjeno za CRUD operacije nad entitetm lijekovi u bazi
+    /// </summary>
+    
     [ApiController]
     [Route("api/v1/[controller]")]
     public class LijekoviController : ControllerBase
@@ -15,6 +19,17 @@ namespace APP.Controllers
         {
             _context = context;
         }
+        /// <summary>
+        /// Dohvaća sve lijekove iz baze
+        /// </summary>
+        /// <remarks>
+        /// Primjer upita
+        ///     Get api/v1/Lijekovi
+        /// </remarks>
+        /// <returns> Lijekovi u bazi </returns>
+        /// <response code="200">Sve OK </response>
+        /// <response code="400">Zahtjev nije valjan</response>
+        
         [HttpGet]
 
         public IActionResult Get()
@@ -39,18 +54,23 @@ namespace APP.Controllers
                     ex.Message);
             }
         }
-        [HttpPost]
-        public IActionResult Post(Lijekovi lijekovi )
+        [HttpGet]
+        [Route("{sifra:int}")]
+        public IActionResult GetBySifra(int sifra)
         {
-            if (!ModelState.IsValid || lijekovi == null)
+            // kontrola ukoliko upit nije valjan
+            if (!ModelState.IsValid || sifra <= 0)
             {
-                return BadRequest();
+                return BadRequest(ModelState);
             }
             try
             {
-                _context.Lijekovi.Add(lijekovi);
-                _context.SaveChanges();
-                return StatusCode(StatusCodes.Status201Created, lijekovi);
+                var lijekovi = _context.Lijekovi.Find(sifra);
+                if (lijekovi == null)
+                {
+                    return new EmptyResult();
+                }
+                return new JsonResult(lijekovi);
             }
             catch (Exception ex)
             {
@@ -58,6 +78,65 @@ namespace APP.Controllers
                     ex.Message);
             }
         }
+
+        /// <summary>
+        /// Dodaje novi lijek u bazu
+        /// </summary>
+        /// <remarks>
+        ///     POST api/v1/Smjer
+        ///     {naziv: "Primjer lijeka"}
+        /// </remarks>
+        /// <param name="lijek">Smjer za unijeti u JSON formatu</param>
+        /// <response code="201">Kreirano</response>
+        /// <response code="400">Zahtjev nije valjan (BadRequest)</response> 
+        /// <response code="503">Baza nedostupna iz razno raznih razloga</response> 
+        /// <returns>Smjer s šifrom koju je dala baza</returns>
+        
+        [HttpPost]
+        public IActionResult Post(Lijekovi entitet )
+        {
+            if (!ModelState.IsValid || entitet == null)
+            {
+                return BadRequest();
+            }
+            try
+            {
+                _context.Lijekovi.Add(entitet);
+                _context.SaveChanges();
+                return StatusCode(StatusCodes.Status201Created, entitet);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status503ServiceUnavailable,
+                    ex.Message);
+            }
+        }
+        /// <summary>
+        /// Mijenja podatke postojećeg lijeka u bazi
+        /// </summary>
+        /// <remarks>
+        /// Primjer upita:
+        ///
+        ///    PUT api/v1/lijekovi/1
+        ///
+        /// {
+        ///  "sifra": 0,
+        ///  "tip": "Tip lijeka",
+        ///  "Doza": "Doza koja se uzima",
+        ///  "Broj tableta": Broj tableta,
+        ///  "Nacin primjene": "Nacin primjene lijeka",
+        ///  "Datum podizanja lijeka ":11.12.2023. ""
+        /// }
+        ///
+        /// </remarks>
+        /// <param name="sifra">Šifra smjera koji se mijenja</param>  
+        /// <param name="smjer">Smjer za unijeti u JSON formatu</param>  
+        /// <returns>Svi poslani podaci od smjera koji su spremljeni u bazi</returns>
+        /// <response code="200">Sve je u redu</response>
+        /// <response code="204">Nema u bazi smjera kojeg želimo promijeniti</response>
+        /// <response code="415">Nismo poslali JSON</response> 
+        /// <response code="503">Baza nedostupna</response> 
+
         [HttpPut]
         [Route("{sifra:int}")]
         public IActionResult Put(int sifra, Lijekovi lijekovi)

@@ -22,8 +22,7 @@ export default function Lijekovi(){
             alert(e);
         });
     }
-     // Ovo se poziva dvaput u dev ali jednom u produkciji
-    // https://stackoverflow.com/questions/60618844/react-hooks-useeffect-is-called-twice-even-if-an-empty-array-is-used-as-an-ar
+    
     useEffect(()=>{
         dohvatiLijekove();
     },[]);
