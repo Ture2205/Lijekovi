@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace APP.Controllers
 {
     /// <summary>
-    /// Namjenjeno za CRUD operacije nad entitetm lijekovi u bazi
+    /// Namjenjeno za CRUD operacije nad entitetom lijekovi u bazi
     /// </summary>
     
     [ApiController]
