@@ -16,6 +16,7 @@ function NavBar() {
                     onClick={() => navigate(RoutesNames.HOME)}
                     role="button"
                     tabIndex="0"
+                    aria-label="Povratak na početnu stranicu"
                 >
                     Lijekovi APP
                 </Navbar.Brand>

@@ -1,3 +1,7 @@
 .linkPocetna{
     cursor: pointer;
 }
+
+.linkPocetna:focus {
+    outline: none; /* Uklanja stiliranje fokusa */
+}
