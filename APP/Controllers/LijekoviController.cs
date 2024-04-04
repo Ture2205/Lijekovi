@@ -89,8 +89,8 @@ namespace APP.Controllers
         /// <param name="lijek">Smjer za unijeti u JSON formatu</param>
         /// <response code="201">Kreirano</response>
         /// <response code="400">Zahtjev nije valjan (BadRequest)</response> 
-        /// <response code="503">Baza nedostupna iz razno raznih razloga</response> 
-        /// <returns>Smjer s šifrom koju je dala baza</returns>
+        /// <response code="503">Baza nedostupna</response> 
+        /// <returns>Lijek sa šifrom koju je dala baza</returns>
         
         [HttpPost]
         public IActionResult Post(Lijekovi entitet )
@@ -129,11 +129,11 @@ namespace APP.Controllers
         /// }
         ///
         /// </remarks>
-        /// <param name="sifra">Šifra smjera koji se mijenja</param>  
-        /// <param name="smjer">Smjer za unijeti u JSON formatu</param>  
-        /// <returns>Svi poslani podaci od smjera koji su spremljeni u bazi</returns>
+        /// <param name="sifra">Šifra lijeka koji se mijenja</param>  
+        /// <param name="lijek">Lijek za unijeti u JSON formatu</param>  
+        /// <returns>Svi poslani podaci od lijekova koji su spremljeni u bazi</returns>
         /// <response code="200">Sve je u redu</response>
-        /// <response code="204">Nema u bazi smjera kojeg želimo promijeniti</response>
+        /// <response code="204">Nema u bazi lijeka kojeg želimo promijeniti</response>
         /// <response code="415">Nismo poslali JSON</response> 
         /// <response code="503">Baza nedostupna</response> 
 
