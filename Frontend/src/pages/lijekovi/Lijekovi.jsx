@@ -30,22 +30,25 @@ export default function Lijekovi() {
       <Table striped bordered hover responsive>
         <thead>
           <tr>
+            <th>Entitet</th>
             <th>Tip</th>
             <th>Doza</th>
-            <th>Brojtableta</th>
-            <th>Nacinprimjene</th>
-            <th>Datumpodizanja</th>
+            <th>Broj tableta</th>
+            <th>Nacin primjene</th>
+            <th>Datum podizanja</th>
+            <th>Opcije</th>
           </tr>
         </thead>
         <tbody>
           {lijekovi.map((lijek, index) => (
             <tr key={index}>
-              <td>{lijek.tip}</td>
-              <td className="desno">{lijek.doza}</td>
-              <td className={lijek.brojtableta == null ? "sredina" : "desno"}>
-                {lijek.nacinprimjene == null ? "Nije definirano" : lijek.nacinprimjene}
-              </td>
-              <td className="sredina">
+              <td>{index + 1}</td>
+              <td>{lijek.tip || "Nije definirano"}</td>
+              <td>{lijek.doza || "Nije definirano"}</td>
+              <td>{lijek.brojtableta || "Nije definirano"}</td>
+              <td>{lijek.nacinprimjene || "Nije definirano"}</td>
+              <td>{lijek.datumpodizanja || "Nije definirano"}</td>
+              <td>
                 <Link to={`${RoutesNames.LIJEKOVI_PROMJENI}/${lijek.id}`}>
                   <FaEdit size={25} />
                 </Link>
