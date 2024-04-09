@@ -1,4 +1,5 @@
-﻿using APP.Models;
+﻿using APP.Data;
+using APP.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace APP.Data
@@ -11,5 +12,6 @@ namespace APP.Data
 
         }
         public DbSet<Lijekovi> Lijekovi { get; set; }
+        public DbSet<Recepti> Recepti { get; set; }
     }
 }

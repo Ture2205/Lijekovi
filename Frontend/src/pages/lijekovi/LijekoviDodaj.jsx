@@ -12,11 +12,11 @@ export default function LijekoviDodaj() {
     const podaci = new FormData(e.target);
 
     const lijekovi = {
-      tip: podaci.get("tip"),
-      doza: podaci.get("doza"),
-      brojTableta: podaci.get("brojTableta"),
-      nacinPrimjene: podaci.get("nacinPrimjene"),
-      datumPodizanja: podaci.get("datumPodizanja")
+      tip: parseInt(podaci.get("tip")),
+      doza: parseInt(podaci.get("doza")),
+      brojtableta: parseInt(podaci.get("brojtableta")),
+      nacinprimjene: podaci.get("nacinprimjene"),
+      datumpodizanja: podaci.get("datumpodizanja")
     };
 
     dodajLijekove(lijekovi);
