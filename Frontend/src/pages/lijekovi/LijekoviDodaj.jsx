@@ -3,32 +3,38 @@ import { Link, useNavigate } from "react-router-dom";
 import { RiArrowGoBackFill, RiArrowGoForwardFill } from "react-icons/ri";
 import { RoutesNames } from "../../constants";
 import LijekoviService from "../../services/LijekoviService";
+import moment from 'moment';
 
 export default function LijekoviDodaj() {
   const navigate = useNavigate();
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     const podaci = new FormData(e.target);
 
     const lijekovi = {
-      tip: parseInt(podaci.get("tip")),
+      tip: podaci.get("tip"),
       doza: parseInt(podaci.get("doza")),
-      brojtableta: parseInt(podaci.get("brojtableta")),
-      nacinprimjene: podaci.get("nacinprimjene"),
-      datumpodizanja: podaci.get("datumpodizanja")
+      brojtableta: parseInt(podaci.get("brojTableta")),
+      nacinprimjene: podaci.get("nacinPrimjene"),
+      datumpodizanja: moment.utc(podaci.get("datumPodizanja"))
     };
 
-    dodajLijekove(lijekovi);
+    await dodajLijekove(lijekovi);
   }
 
   async function dodajLijekove(lijekovi) {
-    const odgovor = await LijekoviService.dodaj(lijekovi);
-    if (odgovor.ok) {
-      navigate(RoutesNames.LIJEKOVI_PREGLED);
-    } else {
-      console.log(odgovor);
-      alert(odgovor.poruka);
+    try {
+      const odgovor = await LijekoviService.dodaj(lijekovi);
+      if (odgovor.ok) {
+        navigate(RoutesNames.LIJEKOVI_PREGLED);
+      } else {
+        console.log(odgovor);
+        alert(odgovor.poruka);
+      }
+    } catch (error) {
+      console.error("Greška prilikom dodavanja lijekova:", error?.response?.data || error.message);
+      alert("Došlo je do greške prilikom dodavanja lijekova.");
     }
   }
 
@@ -75,10 +81,9 @@ export default function LijekoviDodaj() {
         <Form.Group controlId="datumPodizanja">
           <Form.Label>Datum podizanja</Form.Label>
           <Form.Control
-            type="text"
+            type="date"
             name="datumPodizanja"
-            placeholder="Datum podizanja lijeka"
-            maxLength={100}
+            
           />
         </Form.Group>
         <Row className="akcije">

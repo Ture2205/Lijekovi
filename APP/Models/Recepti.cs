@@ -4,7 +4,7 @@ using EdunovaAPP.Models;
 
 namespace APP.Models
 {
-    public class Recepti: Lijekovi
+    public class Recepti: Entitet
 
     {
         /// <summary>

@@ -4,6 +4,8 @@ import { RiArrowGoBackFill, RiArrowGoForwardFill } from "react-icons/ri";
 import { RoutesNames } from "../../constants";
 import LijekoviService from "../../services/LijekoviService";
 import { useEffect, useState } from "react";
+import moment from 'moment';
+
 
 export default function LijekoviPromjeni() {
   const navigate = useNavigate();
@@ -11,30 +13,33 @@ export default function LijekoviPromjeni() {
   const [lijekovi, setLijekovi] = useState({});
 
   async function dohvatiLijekove() {
-    await LijekoviService.getBySifra(routeParams.sifra)
-      .then((res) => {
-        if (res.data) {
-          setLijekovi(res.data);
-        } else {
-          console.log("Nema podataka");
-        }
-      })
-      .catch((e) => {
-        alert(e.poruka);
-      });
+    try {
+      const res = await LijekoviService.getBySifra(routeParams.sifra);
+      if (res.data) {
+        setLijekovi(res.data);
+      } else {
+        console.log("Nema podataka");
+      }
+    } catch (error) {
+      alert(error.message || "Došlo je do pogreške prilikom dohvaćanja podataka");
+    }
   }
 
   useEffect(() => {
     dohvatiLijekove();
-  }, []);
+  }, [routeParams.sifra]);
 
   async function promjeniLijekove(lijekovi) {
-    const odgovor = await LijekoviService.promjeni(routeParams.sifra, lijekovi);
-    if (odgovor.ok) {
-      navigate(RoutesNames.LIJEKOVI_PREGLED);
-    } else {
-      console.log(odgovor);
-      alert(odgovor.poruka);
+    try {
+      const odgovor = await LijekoviService.promjeni(routeParams.sifra, lijekovi);
+      if (odgovor.ok) {
+        navigate(RoutesNames.LIJEKOVI_PREGLED);
+      } else {
+        console.log(odgovor);
+        alert(odgovor.poruka || "Došlo je do pogreške prilikom promjene podataka");
+      }
+    } catch (error) {
+      alert(error.message || "Došlo je do pogreške prilikom komunikacije s poslužiteljem");
     }
   }
 
@@ -44,12 +49,12 @@ export default function LijekoviPromjeni() {
 
     const lijekovi = {
       tip: podaci.get("tip"),
-      doza: podaci.get("doza"),
-      brojTableta: podaci.get("brojtableta"),
-      nacinPrimjene: podaci.get("nacinprimjene"),
-      datumPodizanja: podaci.get("datumpodizanja"),
+      doza: parseInt(podaci.get("doza")),
+      brojtableta: parseInt(podaci.get("brojtableta")),
+      nacinprimjene: podaci.get("nacinprimjene"),
+      datumpodizanja: moment.utc(podaci.get("datumpodizanja")),
     };
-
+console.log(lijekovi)
     promjeniLijekove(lijekovi);
   }
 
@@ -66,27 +71,15 @@ export default function LijekoviPromjeni() {
         </Form.Group>
         <Form.Group controlId="brojtableta">
           <Form.Label>Broj tableta</Form.Label>
-          <Form.Control
-            type="text"
-            defaultValue={lijekovi.brojtableta}
-            name="brojtableta"
-          />
+          <Form.Control type="text" defaultValue={lijekovi.brojtableta} name="brojtableta" />
         </Form.Group>
         <Form.Group controlId="nacinprimjene">
           <Form.Label>Nacin primjene</Form.Label>
-          <Form.Control
-            type="text"
-            defaultValue={lijekovi.nacinprimjene}
-            name="nacinprimjene"
-          />
+          <Form.Control type="text" defaultValue={lijekovi.nacinprimjene} name="nacinprimjene" />
         </Form.Group>
         <Form.Group controlId="datumpodizanja">
           <Form.Label>Datum podizanja</Form.Label>
-          <Form.Control
-            type="text"
-            defaultValue={lijekovi.datumpodizanja}
-            name="datumpodizanja"
-          />
+          <Form.Control type="date" defaultValue={lijekovi.datumpodizanja} name="datumpodizanja" />
         </Form.Group>
         <Row className="akcije">
           <Col>

@@ -49,7 +49,7 @@ export default function Lijekovi() {
               <td>{lijek.nacinprimjene || "Nije definirano"}</td>
               <td>{lijek.datumpodizanja || "Nije definirano"}</td>
               <td>
-                <Link to={`${RoutesNames.LIJEKOVI_PROMJENI}/${lijek.id}`}>
+                <Link to={`/lijekovi/${lijek.sifra}`}>
                   <FaEdit size={25} />
                 </Link>
                 &nbsp;&nbsp;&nbsp;
