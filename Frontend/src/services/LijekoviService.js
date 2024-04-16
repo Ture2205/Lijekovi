@@ -12,10 +12,10 @@ async function getLijekovi() {
   }
 }
 
-async function obrisiLijek(sifra) {
+async function obrisiLijekovi(sifra) {
   try {
     const res = await httpService.delete(`/Lijekovi/${sifra}`);
-    if (res && res.ok) {
+    if (res && res.status === 200) {
       return { ok: true, poruka: "Lijek uspješno obrisan" };
     } else {
       console.error(res);
@@ -60,7 +60,7 @@ async function getBySifra(sifra) {
 
 export default {
   getLijekovi,
-  obrisiLijek,
+  obrisiLijekovi, // Ispravljeno ime funkcije
   dodaj,
   promjeni,
   getBySifra,

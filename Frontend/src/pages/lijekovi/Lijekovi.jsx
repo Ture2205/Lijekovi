@@ -9,7 +9,7 @@ import LijekoviService from "../../services/LijekoviService";
 export default function Lijekovi() {
   const [lijekovi, setLijekovi] = useState([]);
 
-  async function dohvatiLijekove() {
+  async function dohvatiLijekovi() {
     try {
       const res = await LijekoviService.getLijekovi();
       setLijekovi(res.data);
@@ -18,11 +18,11 @@ export default function Lijekovi() {
     }
   }
 
-  async function obrisiLijek(sifra) {
+  async function obrisiLijekovi(sifra) {
     try {
-      const res = await LijekoviService.obrisiLijek(sifra);
+      const res = await LijekoviService.obrisiLijekovi(sifra);
       if (res.ok) {
-        dohvatiLijekove();
+        dohvatiLijekovi();
       } else {
         alert(res.poruka || "Došlo je do pogreške prilikom brisanja lijeka");
       }
@@ -32,7 +32,7 @@ export default function Lijekovi() {
   }
 
   useEffect(() => {
-    dohvatiLijekove();
+    dohvatiLijekovi();
   }, []);
 
   return (
@@ -66,7 +66,7 @@ export default function Lijekovi() {
                   <FaEdit size={25} />
                 </Link>
                 &nbsp;&nbsp;&nbsp;
-                <button onClick={() => obrisiLijek(lijek.sifra)}>
+                <button onClick={() => obrisiLijekovi(lijek.sifra)}>
                   <FaTrash size={25} />
                 </button>
               </td>

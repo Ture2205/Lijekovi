@@ -20,10 +20,10 @@ export default function LijekoviDodaj() {
       datumpodizanja: moment.utc(podaci.get("datumPodizanja"))
     };
 
-    await dodajLijekove(lijekovi);
+    await dodajLijekovi(lijekovi);
   }
 
-  async function dodajLijekove(lijekovi) {
+  async function dodajLijekovi(lijekovi) {
     try {
       const odgovor = await LijekoviService.dodaj(lijekovi);
       if (odgovor.ok) {

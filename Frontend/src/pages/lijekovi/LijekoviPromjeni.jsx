@@ -12,7 +12,7 @@ export default function LijekoviPromjeni() {
   const routeParams = useParams();
   const [lijekovi, setLijekovi] = useState({});
 
-  async function dohvatiLijekove() {
+  async function dohvatiLijekovi() {
     try {
       const res = await LijekoviService.getBySifra(routeParams.sifra);
       if (res && res.data) {
@@ -26,10 +26,10 @@ export default function LijekoviPromjeni() {
   }
 
   useEffect(() => {
-    dohvatiLijekove();
+    dohvatiLijekovi();
   }, [routeParams.sifra]);
 
-  async function promjeniLijekove(lijekovi) {
+  async function promjeniLijekovi(lijekovi) {
     try {
       const odgovor = await LijekoviService.promjeni(routeParams.sifra, lijekovi);
       if (odgovor && odgovor.ok) {
@@ -55,7 +55,7 @@ export default function LijekoviPromjeni() {
       datumpodizanja: moment(podaci.get("datumpodizanja")).format("YYYY-MM-DD"),
     };
 
-    promjeniLijekove(lijekovi);
+    promjeniLijekovi(lijekovi);
   }
 
   return (

@@ -173,7 +173,7 @@ namespace APP.Controllers
                 }
                 _context.Lijekovi.Remove(smjerIzBaze);
                 _context.SaveChanges();
-                return NoContent();
+                return Ok();
             }
             catch (Exception ex)
             {
