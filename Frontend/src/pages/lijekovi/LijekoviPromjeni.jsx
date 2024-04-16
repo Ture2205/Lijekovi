@@ -15,7 +15,7 @@ export default function LijekoviPromjeni() {
   async function dohvatiLijekove() {
     try {
       const res = await LijekoviService.getBySifra(routeParams.sifra);
-      if (res.data) {
+      if (res && res.data) {
         setLijekovi(res.data);
       } else {
         console.log("Nema podataka");
@@ -32,7 +32,7 @@ export default function LijekoviPromjeni() {
   async function promjeniLijekove(lijekovi) {
     try {
       const odgovor = await LijekoviService.promjeni(routeParams.sifra, lijekovi);
-      if (odgovor.ok) {
+      if (odgovor && odgovor.ok) {
         navigate(RoutesNames.LIJEKOVI_PREGLED);
       } else {
         console.log(odgovor);
@@ -52,9 +52,9 @@ export default function LijekoviPromjeni() {
       doza: parseInt(podaci.get("doza")),
       brojtableta: parseInt(podaci.get("brojtableta")),
       nacinprimjene: podaci.get("nacinprimjene"),
-      datumpodizanja: moment.utc(podaci.get("datumpodizanja")),
+      datumpodizanja: moment(podaci.get("datumpodizanja")).format("YYYY-MM-DD"),
     };
-console.log(lijekovi)
+
     promjeniLijekove(lijekovi);
   }
 
@@ -79,7 +79,7 @@ console.log(lijekovi)
         </Form.Group>
         <Form.Group controlId="datumpodizanja">
           <Form.Label>Datum podizanja</Form.Label>
-          <Form.Control type="date" defaultValue={lijekovi.datumpodizanja} name="datumpodizanja" />
+          <Form.Control type="date" defaultValue={moment(lijekovi.datumpodizanja).format("YYYY-MM-DD")} name="datumpodizanja" />
         </Form.Group>
         <Row className="akcije">
           <Col>

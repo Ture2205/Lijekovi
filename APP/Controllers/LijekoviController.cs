@@ -1,21 +1,19 @@
 ﻿using APP.Data;
 using APP.Models;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.AspNetCore.Http;
+using System;
+using System.Linq;
 
 namespace APP.Controllers
 {
-    /// <summary>
-    /// Namjenjeno za CRUD operacije nad entitetom lijekovi u bazi
-    /// </summary>
-    
     [ApiController]
     [Route("api/v1/[controller]")]
     public class LijekoviController : ControllerBase
     {
         private readonly LijekoviContext _context;
 
-        public LijekoviController(LijekoviContext context) 
+        public LijekoviController(LijekoviContext context)
         {
             _context = context;
         }
@@ -31,54 +29,46 @@ namespace APP.Controllers
         /// <response code="400">Zahtjev nije valjan</response>
         
         [HttpGet]
-
         public IActionResult Get()
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
             try
             {
                 var lijekovi = _context.Lijekovi.ToList();
                 if (lijekovi == null || lijekovi.Count == 0)
                 {
-                    return new EmptyResult();
+                    return NoContent();
                 }
-                return new JsonResult(lijekovi);
+                return Ok(lijekovi);
             }
-
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status503ServiceUnavailable,
-                    ex.Message);
+                return StatusCode(StatusCodes.Status503ServiceUnavailable, ex.Message);
             }
         }
+
         [HttpGet]
         [Route("{sifra:int}")]
         public IActionResult GetBySifra(int sifra)
         {
             // kontrola ukoliko upit nije valjan
-            if (!ModelState.IsValid || sifra <= 0)
+            if (sifra <= 0)
             {
-                return BadRequest(ModelState);
+                return BadRequest();
             }
             try
             {
                 var lijekovi = _context.Lijekovi.Find(sifra);
                 if (lijekovi == null)
                 {
-                    return new EmptyResult();
+                    return NoContent();
                 }
-                return new JsonResult(lijekovi);
+                return Ok(lijekovi);
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status503ServiceUnavailable,
-                    ex.Message);
+                return StatusCode(StatusCodes.Status503ServiceUnavailable, ex.Message);
             }
         }
-
         /// <summary>
         /// Dodaje novi lijek u bazu
         /// </summary>
@@ -93,7 +83,7 @@ namespace APP.Controllers
         /// <returns>Lijek sa šifrom koju je dala baza</returns>
         
         [HttpPost]
-        public IActionResult Post(Lijekovi entitet )
+        public IActionResult Post(Lijekovi entitet)
         {
             if (!ModelState.IsValid || entitet == null)
             {
@@ -107,8 +97,7 @@ namespace APP.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status503ServiceUnavailable,
-                    ex.Message);
+                return StatusCode(StatusCodes.Status503ServiceUnavailable, ex.Message);
             }
         }
         /// <summary>
@@ -135,22 +124,21 @@ namespace APP.Controllers
         /// <response code="200">Sve je u redu</response>
         /// <response code="204">Nema u bazi lijeka kojeg želimo promijeniti</response>
         /// <response code="415">Nismo poslali JSON</response> 
-        /// <response code="503">Baza nedostupna</response> 
-
+        /// <response code="503">Baza nedostupna</response>
         [HttpPut]
         [Route("{sifra:int}")]
         public IActionResult Put(int sifra, Lijekovi lijekovi)
         {
-            if (sifra<=0 || !ModelState.IsValid || lijekovi ==null)
+            if (sifra <= 0 || !ModelState.IsValid || lijekovi == null)
             {
                 return BadRequest();
             }
             try
             {
-                var smjerIzBaze = _context.Lijekovi.Find(lijekovi);
+                var smjerIzBaze = _context.Lijekovi.Find(sifra);
                 if (smjerIzBaze == null)
                 {
-                    return StatusCode(StatusCodes.Status204NoContent, lijekovi);
+                    return NoContent();
                 }
 
                 smjerIzBaze.Tip = lijekovi.Tip;
@@ -160,21 +148,19 @@ namespace APP.Controllers
 
                 _context.Lijekovi.Update(smjerIzBaze);
                 _context.SaveChanges();
-                return StatusCode(StatusCodes.Status200OK, smjerIzBaze);
-              
-           }
+                return Ok(smjerIzBaze);
+            }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status503ServiceUnavailable,
-                    ex.Message);
+                return StatusCode(StatusCodes.Status503ServiceUnavailable, ex.Message);
             }
         }
+
         [HttpDelete]
         [Route("{sifra:int}")]
-        [Produces("application/json")]
         public IActionResult Delete(int sifra)
         {
-            if (!ModelState.IsValid || sifra <=0)
+            if (sifra <= 0)
             {
                 return BadRequest();
             }
@@ -183,21 +169,16 @@ namespace APP.Controllers
                 var smjerIzBaze = _context.Lijekovi.Find(sifra);
                 if (smjerIzBaze == null)
                 {
-                    return StatusCode(StatusCodes.Status204NoContent, sifra);
+                    return NoContent();
                 }
                 _context.Lijekovi.Remove(smjerIzBaze);
                 _context.SaveChanges();
-
-                return new JsonResult("{\"poruka\": \"Obrisano\"}");
+                return NoContent();
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status503ServiceUnavailable,
-                    ex.Message);
+                return StatusCode(StatusCodes.Status503ServiceUnavailable, ex.Message);
             }
         }
-
     }
-
-
 }
