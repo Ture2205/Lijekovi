@@ -1,69 +1,67 @@
-import { App } from "../constants"
+import { App } from "../constants";
 import { httpService } from "./httpService";
 
-async function getLijekovi(){
-
-    return await httpService.get('/Lijekovi')
-    .then((res)=>{
-        if(App.DEV) console.table(res.data);
-
-        return res;
-    }).catch((e)=>{
-        console.log(e);
-    });
+async function getLijekovi() {
+  try {
+    const res = await httpService.get('/Lijekovi');
+    if (App.DEV) console.table(res.data);
+    return res;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Došlo je do pogreške prilikom dohvaćanja lijekova");
+  }
 }
 
-async function obrisiLijekovi (sifra){
-
-    return await httpService.delete('/Lijekovi/'+sifra)
-    .then((res)=>{
-        return {ok:true, poruka:res};
-    }).catch((e)=>{
-        console.log(e);
-    });
-
+async function obrisiLijek(sifra) {
+  try {
+    const res = await httpService.delete(`/Lijekovi/${sifra}`);
+    if (res && res.ok) {
+      return { ok: true, poruka: "Lijek uspješno obrisan" };
+    } else {
+      console.error(res);
+      throw new Error("Došlo je do pogreške prilikom brisanja lijeka");
+    }
+  } catch (error) {
+    console.error(error);
+    throw new Error("Došlo je do pogreške prilikom brisanja lijeka");
+  }
 }
 
-async function dodaj(lijekovi){
-    const odgovor = await httpService.post('/Lijekovi',lijekovi)
-    .then(()=>{
-        return {ok: true, poruka: 'Uspješno dodano'}
-    })
-    .catch((e)=>{
-        console.log(e.response.data.errors);
-        return {ok: false, poruka: 'Greška'}
-    });
-    return odgovor;
-}
-async function promjeni(sifra,lijekovi){
-    const odgovor = await httpService.put('/Lijekovi/'+sifra,lijekovi)
-    .then(()=>{
-        return {ok: true, poruka: 'Uspješno promijenjeno'}
-    })
-    .catch((e)=>{
-        console.log(e.response.data.errors);
-        return {ok: false, poruka: 'Greška'}
-    });
-    return odgovor;
-}
-async function getBySifra(sifra){
-    return await httpService.get('/Lijekovi/' + sifra)
-    .then((res)=>{
-        if(App.DEV) console.table(res.data);
-
-        return res;
-    }).catch((e)=>{
-        console.log(e);
-        return {poruka: e}
-    });
+async function dodaj(lijekovi) {
+  try {
+    const odgovor = await httpService.post('/Lijekovi', lijekovi);
+    return { ok: true, poruka: "Lijek uspješno dodan" };
+  } catch (error) {
+    console.error(error.response.data.errors);
+    throw new Error("Došlo je do pogreške prilikom dodavanja lijeka");
+  }
 }
 
-export default{
-    getLijekovi,
-    obrisiLijekovi,
-    dodaj,
-    promjeni,
-    getBySifra,
+async function promjeni(sifra, lijekovi) {
+  try {
+    const odgovor = await httpService.put(`/Lijekovi/${sifra}`, lijekovi);
+    return { ok: true, poruka: "Podaci o lijeku uspješno promijenjeni" };
+  } catch (error) {
+    console.error(error.response.data.errors);
+    throw new Error("Došlo je do pogreške prilikom promjene podataka o lijeku");
+  }
+}
 
+async function getBySifra(sifra) {
+  try {
+    const res = await httpService.get(`/Lijekovi/${sifra}`);
+    if (App.DEV) console.table(res.data);
+    return res;
+  } catch (error) {
+    console.error(error);
+    throw new Error("Došlo je do pogreške prilikom dohvaćanja lijeka po šifri");
+  }
+}
 
+export default {
+  getLijekovi,
+  obrisiLijek,
+  dodaj,
+  promjeni,
+  getBySifra,
 };

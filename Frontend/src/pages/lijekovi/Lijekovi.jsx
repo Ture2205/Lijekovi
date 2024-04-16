@@ -18,6 +18,19 @@ export default function Lijekovi() {
     }
   }
 
+  async function obrisiLijek(sifra) {
+    try {
+      const res = await LijekoviService.obrisiLijek(sifra);
+      if (res.ok) {
+        dohvatiLijekove();
+      } else {
+        alert(res.poruka || "Došlo je do pogreške prilikom brisanja lijeka");
+      }
+    } catch (error) {
+      alert(error.message || "Došlo je do pogreške prilikom komunikacije s poslužiteljem");
+    }
+  }
+
   useEffect(() => {
     dohvatiLijekove();
   }, []);
@@ -53,9 +66,9 @@ export default function Lijekovi() {
                   <FaEdit size={25} />
                 </Link>
                 &nbsp;&nbsp;&nbsp;
-                <Link>
+                <button onClick={() => obrisiLijek(lijek.sifra)}>
                   <FaTrash size={25} />
-                </Link>
+                </button>
               </td>
             </tr>
           ))}
