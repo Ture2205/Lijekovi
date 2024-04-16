@@ -25,7 +25,10 @@ use lijek;
 --GO
 --SELECT name, collation_name FROM sys.databases;
 --GO
-
+--drop table dogadaji;
+--drop table pacijenti;
+--drop table recepti;
+--drop table lijekovi;
 
 create table pacijenti(
 sifra int not null primary key identity(1,1),
