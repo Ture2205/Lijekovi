@@ -9,7 +9,7 @@ import ReceptiService from "../../services/ReceptiService";
 export default function Recepti() {
   const [recepti, setRecepti] = useState([]);
 
-  async function dohvatiRecepte() {
+  async function dohvatiRecepti() {
     try {
       const res = await ReceptiService.getRecepti();
       setRecepti(res.data);
@@ -18,13 +18,13 @@ export default function Recepti() {
     }
   }
 
-  async function obrisiRecept(sifra) {
+  async function obrisiRecepti(sifra) {
     try {
-      const res = await ReceptiService.obrisiRecept(sifra);
-      if (res.ok) {
-        dohvatiRecepte();
+      const res = await ReceptiService.obrisiRecepti(sifra);
+      if (res && res.ok) {
+        dohvatiRecepti();
       } else {
-        alert(res.poruka || "Došlo je do pogreške prilikom brisanja recepta");
+        alert(res.data.poruka || "Došlo je do pogreške prilikom brisanja recepta");
       }
     } catch (error) {
       alert(error.message || "Došlo je do pogreške prilikom komunikacije s poslužiteljem");
@@ -32,7 +32,7 @@ export default function Recepti() {
   }
 
   useEffect(() => {
-    dohvatiRecepte();
+    dohvatiRecepti();
   }, []);
 
   return (
@@ -62,7 +62,7 @@ export default function Recepti() {
                   <FaEdit size={25} />
                 </Link>
                 &nbsp;&nbsp;&nbsp;
-                <button onClick={() => obrisiRecept(recept.sifra)}>
+                <button onClick={() => obrisiRecepti(recept.sifra)}>
                   <FaTrash size={25} />
                 </button>
               </td>

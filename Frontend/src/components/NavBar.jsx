@@ -29,6 +29,11 @@ function NavBar() {
                             >
                                 Lijekovi pregled
                             </NavDropdown.Item>
+                            <NavDropdown.Item
+                                onClick={() => navigate(RoutesNames.RECEPTI_PREGLED)}
+                            >
+                                Recepti pregled
+                            </NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>

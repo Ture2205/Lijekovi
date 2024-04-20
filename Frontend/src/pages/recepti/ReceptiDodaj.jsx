@@ -12,18 +12,18 @@ export default function ReceptiDodaj() {
     e.preventDefault();
     const podaci = new FormData(e.target);
 
-    const recept = {
+    const recepti = {
       datumPodizanja: moment.utc(podaci.get("datumPodizanja")).toDate(),
       doza: parseInt(podaci.get("doza")),
       ime: podaci.get("ime")
     };
 
-    await dodajRecept(recept);
+    await dodajRecepti(recepti);
   }
 
-  async function dodajRecept(recept) {
+  async function dodajRecepti(recepti) {
     try {
-      const odgovor = await ReceptiService.dodajRecept(recept);
+      const odgovor = await ReceptiService.dodajRecepti(recepti);
       if (odgovor.ok) {
         navigate(RoutesNames.RECEPTI);
       } else {
