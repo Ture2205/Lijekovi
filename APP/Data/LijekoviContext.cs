@@ -1,5 +1,4 @@
-﻿using APP.Data;
-using APP.Models;
+﻿using APP.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace APP.Data

@@ -38,7 +38,7 @@ function NavBar() {
                     </Nav>
                 </Navbar.Collapse>
                 <Navbar.Collapse className='justify-content-end'>
-                    <Nav.Link target='_blank' href="http://mario2205-001-site1.gtempurl.com/swagger/index.html">
+                    <Nav.Link target='_blank' href="https://ture2205-001-site1.ltempurl.com/swagger/index.html">
                         API Dokumentacija
                     </Nav.Link>
                 </Navbar.Collapse>
