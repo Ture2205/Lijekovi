@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Table } from "react-bootstrap";
 import { IoIosAdd } from "react-icons/io";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { RoutesNames } from "../../constants";
 import LijekoviService from "../../services/LijekoviService";
+import moment from 'moment';
 
 export default function Lijekovi() {
   const [lijekovi, setLijekovi] = useState([]);
@@ -60,7 +61,7 @@ export default function Lijekovi() {
               <td>{lijek.doza || "Nije definirano"}</td>
               <td>{lijek.brojtableta || "Nije definirano"}</td>
               <td>{lijek.nacinprimjene || "Nije definirano"}</td>
-              <td>{lijek.datumpodizanja || "Nije definirano"}</td>
+              <td>{moment(lijek.datumpodizanja).format("YYYY-MM-DD") || "Nije definirano"}</td> {/* Koristimo moment.js za formatiranje datuma */}
               <td>
                 <Link to={`/lijekovi/${lijek.sifra}`}>
                   <FaEdit size={25} />

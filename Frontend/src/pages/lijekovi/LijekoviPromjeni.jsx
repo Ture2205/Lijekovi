@@ -6,7 +6,6 @@ import LijekoviService from "../../services/LijekoviService";
 import { useEffect, useState } from "react";
 import moment from 'moment';
 
-
 export default function LijekoviPromjeni() {
   const navigate = useNavigate();
   const routeParams = useParams();
@@ -16,6 +15,8 @@ export default function LijekoviPromjeni() {
     try {
       const res = await LijekoviService.getBySifra(routeParams.sifra);
       if (res && res.data) {
+        // Konverzija datuma iz stringa u JavaScript Date objekt
+        res.data.datumpodizanja = new Date(res.data.datumpodizanja);
         setLijekovi(res.data);
       } else {
         console.log("Nema podataka");
@@ -47,15 +48,18 @@ export default function LijekoviPromjeni() {
     e.preventDefault();
     const podaci = new FormData(e.target);
 
-    const lijekovi = {
+    // Pretvaranje stringa datuma iz forme u JavaScript Date objekt
+    const datumPodizanja = moment(podaci.get("datumpodizanja"), "YYYY-MM-DD").toDate();
+
+    const promijenjeniLijekovi = {
       tip: podaci.get("tip"),
       doza: parseInt(podaci.get("doza")),
       brojtableta: parseInt(podaci.get("brojtableta")),
       nacinprimjene: podaci.get("nacinprimjene"),
-      datumpodizanja: moment(podaci.get("datumpodizanja")).format("YYYY-MM-DD"),
+      datumpodizanja: datumPodizanja,
     };
 
-    promjeniLijekovi(lijekovi);
+    promjeniLijekovi(promijenjeniLijekovi);
   }
 
   return (
@@ -79,7 +83,7 @@ export default function LijekoviPromjeni() {
         </Form.Group>
         <Form.Group controlId="datumpodizanja">
           <Form.Label>Datum podizanja</Form.Label>
-          <Form.Control type="date" value={moment(lijekovi.datumpodizanja).format("YYYY-MM-DD")} name="datumpodizanja" />
+          <Form.Control type="date" defaultValue={moment(lijekovi.datumpodizanja).format("YYYY-MM-DD")} name="datumpodizanja" />
         </Form.Group>
         <Row className="akcije">
           <Col>

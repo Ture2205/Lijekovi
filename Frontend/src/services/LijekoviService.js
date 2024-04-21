@@ -1,5 +1,6 @@
 import { App } from "../constants";
 import { httpService } from "./httpService";
+import moment from 'moment';
 
 async function getLijekovi() {
   try {
@@ -39,6 +40,9 @@ async function dodaj(lijekovi) {
 
 async function promjeni(sifra, lijekovi) {
   try {
+    // Provjerite je li datum pravilno formatiran prije slanja na backend
+    lijekovi.datumpodizanja = moment(lijekovi.datumpodizanja).format("YYYY-MM-DD");
+    
     const odgovor = await httpService.put(`/Lijekovi/${sifra}`, lijekovi);
     return { ok: true, poruka: "Podaci o lijeku uspješno promijenjeni" };
   } catch (error) {
