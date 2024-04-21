@@ -27,12 +27,12 @@ function NavBar() {
                             <NavDropdown.Item
                                 onClick={() => navigate(RoutesNames.LIJEKOVI_PREGLED)}
                             >
-                                Lijekovi pregled
+                                Lijekovi 
                             </NavDropdown.Item>
                             <NavDropdown.Item
                                 onClick={() => navigate(RoutesNames.RECEPTI_PREGLED)}
                             >
-                                Recepti pregled
+                                Recepti 
                             </NavDropdown.Item>
                         </NavDropdown>
                     </Nav>

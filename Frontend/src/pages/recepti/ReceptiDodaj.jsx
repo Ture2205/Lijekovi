@@ -11,9 +11,16 @@ export default function ReceptiDodaj() {
   async function handleSubmit(e) {
     e.preventDefault();
     const podaci = new FormData(e.target);
+    
+    // Provjera ispravnosti datuma
+    const datumPodizanjaValue = podaci.get("datumPodizanja");
+    if (!moment(datumPodizanjaValue, moment.ISO_8601, true).isValid()) {
+      alert("Neispravan format datuma podizanja.");
+      return;
+    }
 
     const recepti = {
-      datumPodizanja: moment.utc(podaci.get("datumPodizanja")).toDate(),
+      datumpodizanja: moment(datumPodizanjaValue, "YYYY-MM-DD").toISOString(),
       doza: parseInt(podaci.get("doza")),
       ime: podaci.get("ime")
     };
@@ -23,7 +30,7 @@ export default function ReceptiDodaj() {
 
   async function dodajRecepti(recepti) {
     try {
-      const odgovor = await ReceptiService.dodajRecepti(recepti);
+      const odgovor = await ReceptiService.dodaj(recepti);
       if (odgovor.ok) {
         navigate(RoutesNames.RECEPTI);
       } else {
