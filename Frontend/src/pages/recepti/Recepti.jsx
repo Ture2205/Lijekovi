@@ -54,7 +54,7 @@ export default function Recepti() {
           {recepti.map((recept, index) => (
             <tr key={index}>
               <td>{index + 1}</td>
-              <td>{recept.datumPodizanja || "Nije definirano"}</td>
+              <td>{recept.datumpodizanja || "Nije definirano"}</td>
               <td>{recept.doza || "Nije definirano"}</td>
               <td>{recept.ime || "Nije definirano"}</td>
               <td>
